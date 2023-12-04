@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=swap'); /* 제목 폰트를 위해 구글 폰트 임포트 */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap'); /* 본문 폰트를 위해 구글 폰트 임포트 */
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+    background:linear-gradient(to bottom, #ffcaea, #cae8ff); /* 아래로 갈수록 하늘색 */
+    font-family: 'Nanum Gothic';
+    font-size: 14px;
+    min-width: 750px;
+}
+
+header {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center; /* 헤더 텍스트 가운데 정렬 */
+    font-family: 'Moirai One'; /* 헤더 폰트 설정 */
+    font-size: 22px;
+    color: white;
+}
+
+nav ul {
+    text-align: center;
+    background-color: #cae8ff;
+    border-radius: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+nav ul li {
+    display: inline; /* 줄바꿈을 하지 않고 li 요소들이 한 라인에 배치된다. */
+    font-weight: bold; /* 폰트를 두껍게 설정 */
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+nav a:link {
+    text-decoration-line: none; /* 링크의 밑줄 제거 */
+    color: black;
+}
+
+nav a:visited {
+    color: black; /* 사용자가 방문한 적 있는 링크의 글자색 white */
+}
+
+nav a:hover {
+    color: white; /* 링크에 마우스를 올리면 글자색 white */
+}
+
+aside {
+    float: left; /* aside 요소를 왼쪽에 정렬 */
+    
+}
+
+aside img {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+aside strong {
+    background-color: #cae8ff;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 5px;
+}
+
+aside #bio li {
+    list-style-type: none;
+}
+
+aside p {
+    display: inline; /* p 요소를 strong과 함께 한 줄에 배치하기 위함 */
+}
+
+section {
+    text-align: center;
+}
