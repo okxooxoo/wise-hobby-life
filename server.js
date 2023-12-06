@@ -33,7 +33,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  res.render("home.ejs", {user: req.session.user});
+  res.render("home.ejs", { user: req.session.user });
 });
 
 app.get("/signup", function (req, res) {
@@ -72,11 +72,11 @@ app.post("/signup", function (req, res) {
 app.post("/login", function (req, res) {
   mydb
     .collection("account")
-    .findOne({loginId: req.body.userid})
+    .findOne({ loginId: req.body.userid })
     .then((result) => {
       if (result.password === sha(req.body.userpw)) {
         req.session.user = result;
-        res.redirect('/');
+        res.redirect("/");
       } else {
         res.send(
           "<script>location.href='/login';alert('아이디 혹은 비밀번호가 일치하지 않습니다.');</script>"
@@ -90,11 +90,41 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.get('/logout', function(req, res) {
+app.get("/logout", function (req, res) {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect("/");
 });
 
-app.get('/share', function(req, res) {
-  res.render("share.ejs");
+app.get("/share", function (req, res) {
+  if (req.session.user) {
+    res.render("share.ejs");
+  } else {
+    res.send(
+      "<script>location.href='/login';alert('로그인 후에 이용할 수 있습니다.');</script>"
+    );
+  }
+});
+
+app.post("/share", function (req, res) {
+  const offset = 1000 * 60 * 60 * 9;
+  const koreaNow = new Date(new Date().getTime() + offset);
+  console.log(req.body);
+
+  mydb
+    .collection("hobby")
+    .insertOne({
+      userId: req.session.user.loginId,
+      title: req.body.title,
+      content: req.body.content,
+      createdDate: koreaNow,
+    })
+    .then((result) => {
+      res.send(
+        "<script>location.href='/';alert('성공적으로 취미를 공유하였습니다!');</script>"
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
 });

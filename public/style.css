@@ -58,6 +58,7 @@ aside {
 aside img {
     margin-top: 20px;
     margin-bottom: 20px;
+    border-radius: 20px;
 }
 
 aside strong {
@@ -80,7 +81,7 @@ section {
 }
 
 .sign-btn {
-    background-color: #cae8ff;
+    background-color: #ffcaea;
     padding: 10px 15px 10px 15px;
     border-width: 0px;
     border-radius: 20px;
