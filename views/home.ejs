@@ -8,15 +8,7 @@
   </head>
 
   <body>
-    <header><h2>슬기로운 취미생활</h2></header>
-    <nav>
-      <!--다른 html 파일로 이동할 수 있는 네비게이션 링크 모음-->
-      <ul>
-        <li><a href="/" style="color: white">홈</a></li>
-        <li><a href="/explore">둘러보기</a></li>
-        <li><a href="/share">공유하기</a></li>
-      </ul>
-    </nav>
+    <%- include('title.ejs') %>
 
     <div id="content">
       <aside>
@@ -54,7 +46,24 @@
           <h3>사람들과 함께 성장하며 당신의 무한한 가능성을 찾아보세요!</h3>
           <h3>⋮</h3>
         </article>
+
+        <article>
+          <button onclick="login()" class="sign-btn">로그인</button>
+          또는
+          <button onclick="signup()" class="sign-btn">회원가입</button>
+        </article>
       </section>
     </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+      function signup() {
+        open('/signup', '_self');
+      }
+
+      function login() {
+        open('/login', '_self');
+      }
+    </script>
   </body>
 </html>

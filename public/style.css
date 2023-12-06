@@ -10,6 +10,7 @@ body {
     font-family: 'Nanum Gothic';
     font-size: 14px;
     min-width: 750px;
+    min-height: 850px;
 }
 
 header {
@@ -77,3 +78,46 @@ aside p {
 section {
     text-align: center;
 }
+
+.sign-btn {
+    background-color: #cae8ff;
+    padding: 10px 15px 10px 15px;
+    border-width: 0px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.sign-btn:hover {
+    color: white;
+}
+
+#form-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto; /* 가운데 정렬을 위한 마진 설정 */
+    max-width: 500px;
+}
+
+.sign-form {
+    display: flex;
+    flex-direction: row; /* 요소를 가로로 배치 */
+    align-items: center; /* 요소를 수직 정렬 */
+    margin: 10px;
+}
+
+.sign-form label {
+    min-width: 100px; /* 최소 너비 설정 */
+    margin-right: 10px; /* 라벨 오른쪽 간격 추가 */
+}
+
+.sign-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0px;
+}
+
+#form-container .sign-btn {
+    margin-top: 20px;
+}
+
