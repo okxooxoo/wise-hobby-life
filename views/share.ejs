@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>슬기로운 취미생활</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+
+  <body>
+    <%- include('title.ejs') %>
+
+    <section>
+      <article>
+        <h3>당신의 취미를 공유해주세요 🌈</h3>
+
+        <form id="form-container" action="/share" method="post">
+          <div class="sign-form">
+            <label for="title">사진</label>
+            <div id="hobby-img">
+              <img src="no-image.png" width="200" height="200" alt="이미지 없음" />
+            </div>
+          </div>
+
+          <div class="image-btn">
+            <input id="image" name="image" type="file" accept="image/*" onchange="loadFile(this)" />
+          </div>
+
+          <div class="sign-form">
+            <label for="title">제목</label>
+            <input id="title" name="title" type="text" />
+          </div>
+
+          <div class="sign-form">
+            <label for="content">내용</label>
+            <textarea id="content" name="content"></textarea>
+          </div>
+          <button class="sign-btn" type="submit">작성하기</button>
+        </form>
+      </article>
+    </section>
+
+    <script>
+      function loadFile(input) {
+        const file = input.files[0];
+
+        const imageContainer = document.getElementById("hobby-img");
+        imageContainer.innerHTML = ""; // 이미지 불러오기 전에 기존의 내용 비우기
+        imageContainer.style.backgroundColor = "transparent";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.style.width = "200px";
+        img.style.height = "200px";
+        imageContainer.appendChild(img);
+      }
+    </script>
+  </body>
+</html>

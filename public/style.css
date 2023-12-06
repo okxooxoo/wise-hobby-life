@@ -115,9 +115,32 @@ section {
     padding: 10px;
     border-radius: 10px;
     border-width: 0px;
+    font-family: 'Nanum Gothic';
+}
+
+.sign-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0px;
+    font-family: 'Nanum Gothic';
 }
 
 #form-container .sign-btn {
     margin-top: 20px;
 }
 
+#hobby-img {
+    margin: auto;
+}
+
+#hobby-img img {
+    border-radius: 20px;
+}
+
+.image-btn {
+    margin-left: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

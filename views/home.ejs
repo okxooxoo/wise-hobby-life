@@ -10,33 +10,10 @@
   <body>
     <%- include('title.ejs') %>
 
-    <div id="content">
-      <aside>
-        <!--사이드바에 프로필 정보 표시-->
-        <img src="profile.png" width="200" height="200" alt="프로필 사진" />
-        
-        <div id="name">
-          <strong>name</strong>
-          <p>김서로</p>
-        </div><br>
-
-        <div id="bio">
-          <strong>bio</strong>
-          <ul>
-            <li>데이터사이언스전공 4학년</li>
-            <li>새로운 것에 관심이 많습니다!</li>
-          </ul>
-        </div>
-        
-        <div id="hobby">
-          <strong>hobby</strong>
-          <ul>
-            <li>코바늘 뜨개질</li>
-            <li>일상 기록하기</li>
-            <li>인테리어 소품 모으기</li>
-          </ul>
-        </div>
-      </aside>
+    <div>
+      <% if(user) { %>
+        <%- include('navbar.ejs') %>
+      <% } %>
 
       <section>
         <article>
@@ -48,7 +25,6 @@
         </article>
 
         <% if(user) { %>
-          <p><%= user.name %>님 환영합니다!</p>
           <button onclick="logout()" class="sign-btn">로그아웃</button>
         <% } else { %>
 

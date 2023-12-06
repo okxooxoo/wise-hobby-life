@@ -94,3 +94,7 @@ app.get('/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/');
 });
+
+app.get('/share', function(req, res) {
+  res.render("share.ejs");
+});
