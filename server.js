@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
+const multer = require("multer");
 let session = require("express-session");
 const sha = require("sha256");
 const mongoclient = require("mongodb").MongoClient;
@@ -9,6 +10,20 @@ const ObjId = require("mongodb").ObjectId;
 const app = express();
 const url = process.env.DB_URL;
 const secret = process.env.SECRET;
+
+const storage = multer.diskStorage({
+  destination: function(req, file, done) {
+    done(null, './public/image');
+  },
+  filename: function(req, file, done) {
+    const now = new Date().toLocaleString('ko-KR');
+    const filename = `${now}${file.originalname}`
+    done(null, filename);
+  },
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+const upload = multer({storage: storage});
 
 let mydb;
 
@@ -105,9 +120,9 @@ app.get("/share", function (req, res) {
   }
 });
 
-app.post("/share", function (req, res) {
-  const offset = 1000 * 60 * 60 * 9;
-  const koreaNow = new Date(new Date().getTime() + offset);
+app.post("/share", upload.single('image'), function (req, res) {
+  const now = new Date().toLocaleString('ko-KR');
+  const imagePath = '/' + req.file.path;
   console.log(req.body);
 
   mydb
@@ -116,7 +131,8 @@ app.post("/share", function (req, res) {
       userId: req.session.user.loginId,
       title: req.body.title,
       content: req.body.content,
-      createdDate: koreaNow,
+      image: imagePath,
+      createdDate: now,
     })
     .then((result) => {
       res.send(
