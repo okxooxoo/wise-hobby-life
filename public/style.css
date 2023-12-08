@@ -18,7 +18,7 @@ header {
     margin-bottom: 40px;
     text-align: center; /* 헤더 텍스트 가운데 정렬 */
     font-family: 'Moirai One'; /* 헤더 폰트 설정 */
-    font-size: 22px;
+    font-size: 26px;
     color: white;
 }
 
@@ -144,4 +144,30 @@ section {
     margin-left: 80px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 200px;
+    padding: 20px;
+    margin: 10px;
+    border: solid 1px white;
+    border-radius: 20px;
+}
+
+
+
+.card-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 15px;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: solid 1px white;
 }

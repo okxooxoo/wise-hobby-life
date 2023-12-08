@@ -12,18 +12,19 @@ const url = process.env.DB_URL;
 const secret = process.env.SECRET;
 
 const storage = multer.diskStorage({
-  destination: function(req, file, done) {
-    done(null, './public/image');
+  destination: function (req, file, done) {
+    done(null, "./public/image");
   },
-  filename: function(req, file, done) {
-    const now = new Date().toLocaleString('ko-KR');
-    const filename = `${now}${file.originalname}`
+  filename: function (req, file, done) {
+    const now = new Date().toLocaleString("ko-KR");
+
+    const filename = `${now}${file.originalname}`;
     done(null, filename);
   },
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-const upload = multer({storage: storage});
+const upload = multer({ storage: storage });
 
 let mydb;
 
@@ -120,9 +121,9 @@ app.get("/share", function (req, res) {
   }
 });
 
-app.post("/share", upload.single('image'), function (req, res) {
-  const now = new Date().toLocaleString('ko-KR');
-  const imagePath = '/' + req.file.path;
+app.post("/share", upload.single("image"), function (req, res) {
+  const now = new Date().toLocaleString("ko-KR");
+  const imagePath = req.file.path.replace("public/", "");
   console.log(req.body);
 
   mydb
@@ -138,6 +139,20 @@ app.post("/share", upload.single('image'), function (req, res) {
       res.send(
         "<script>location.href='/';alert('성공적으로 취미를 공유하였습니다!');</script>"
       );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
+});
+
+app.get("/explore", function (req, res) {
+  mydb
+    .collection("hobby")
+    .find()
+    .toArray()
+    .then((result) => {
+      res.render("explore.ejs", { user: req.session.user, data: result });
     })
     .catch((err) => {
       console.log(err);
