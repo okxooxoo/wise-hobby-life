@@ -9,7 +9,7 @@ body {
     background:linear-gradient(to bottom, #ffcaea, #cae8ff); /* 아래로 갈수록 하늘색 */
     font-family: 'Nanum Gothic';
     font-size: 14px;
-    min-width: 750px;
+    min-width: 850px;
     min-height: 850px;
 }
 

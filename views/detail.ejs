@@ -31,16 +31,10 @@
             <label for="content">내용</label>
             <p id="content" name="content"><%= data.content %></p>
           </div>
-          <button class="sign-btn" type="button" onclick="openExplore()">목록으로</button>
+          <button class="sign-btn" type="button" onclick="history.back()">목록으로</button>
         </form>
       </article>
     </section>
 
-
-    <script>
-      function openExplore() {
-        open('/explore', '_self');
-      }
-    </script>
   </body>
 </html>

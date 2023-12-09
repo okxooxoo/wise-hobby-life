@@ -172,3 +172,24 @@ app.get("/detail/:id", function (req, res) {
       res.status(500).send();
     });
 });
+
+app.get("/blog", function (req, res) {
+  if (req.session.user) {
+    console.log(req.session.user);
+    mydb
+      .collection("hobby")
+      .find({ userId: new ObjId(req.session.user._id) })
+      .toArray()
+      .then((result) => {
+        res.render("blog.ejs", { user: req.session.user, data: result });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send();
+      });
+  } else {
+    res.send(
+      "<script>location.href='/login';alert('로그인 후에 이용할 수 있습니다.');</script>"
+    );
+  }
+});
