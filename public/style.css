@@ -171,3 +171,11 @@ section {
     font-weight: bold;
     border-bottom: solid 1px white;
 }
+
+.sign-form p {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0px;
+    font-family: 'Nanum Gothic';
+}

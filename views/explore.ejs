@@ -20,7 +20,7 @@
 
           <div id="card-container">
             <% for (var i = 0; i < data.length; i++) { %>
-            <div class="card">
+            <div class="card" id="<%= data[i]._id %>" onclick="openDetail(this)">
               <img
                 src="<%= data[i].image %>"
                 width="200"
@@ -42,5 +42,10 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        function openDetail(input) {
+            open(`/detail/${input.id}`, '_self');
+        }
+    </script>
   </body>
 </html>

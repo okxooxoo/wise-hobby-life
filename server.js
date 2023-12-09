@@ -124,12 +124,11 @@ app.get("/share", function (req, res) {
 app.post("/share", upload.single("image"), function (req, res) {
   const now = new Date().toLocaleString("ko-KR");
   const imagePath = req.file.path.replace("public/", "");
-  console.log(req.body);
 
   mydb
     .collection("hobby")
     .insertOne({
-      userId: req.session.user.loginId,
+      userId: new ObjId(req.session.user._id),
       title: req.body.title,
       content: req.body.content,
       image: imagePath,
@@ -137,7 +136,7 @@ app.post("/share", upload.single("image"), function (req, res) {
     })
     .then((result) => {
       res.send(
-        "<script>location.href='/';alert('성공적으로 취미를 공유하였습니다!');</script>"
+        "<script>location.href='/explore';alert('성공적으로 취미를 공유하였습니다!');</script>"
       );
     })
     .catch((err) => {
@@ -156,6 +155,20 @@ app.get("/explore", function (req, res) {
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).send();
+    });
+});
+
+app.get("/detail/:id", function (req, res) {
+  req.params.id = new ObjId(req.params.id);
+
+  mydb
+    .collection("hobby")
+    .findOne({ _id: req.params.id })
+    .then((result) => {
+      res.render("detail.ejs", { data: result });
+    })
+    .catch((err) => {
       res.status(500).send();
     });
 });

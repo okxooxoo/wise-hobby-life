@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>슬기로운 취미생활</title>
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+  </head>
+
+  <body>
+    <%- include('title.ejs') %>
+
+    <section>
+      <article>
+        <h2><%= data.title %></h2>
+
+        <form id="form-container" action="#">
+          <div class="sign-form">
+            <label for="title">사진</label>
+            <div id="hobby-img">
+              <img src="../<%= data.image %>" width="200" height="200" alt="취미 사진" />
+            </div>
+          </div>
+
+          <div class="sign-form">
+            <label for="title">작성일</label>
+            <p id="title" name="title"><%= data.createdDate %></p>
+          </div>
+
+          <div class="sign-form">
+            <label for="content">내용</label>
+            <p id="content" name="content"><%= data.content %></p>
+          </div>
+          <button class="sign-btn" type="button" onclick="openExplore()">목록으로</button>
+        </form>
+      </article>
+    </section>
+
+
+    <script>
+      function openExplore() {
+        open('/explore', '_self');
+      }
+    </script>
+  </body>
+</html>
