@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=swap'); /* 제목 폰트를 위해 구글 폰트 임포트 */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap'); /* 본문 폰트를 위해 구글 폰트 임포트 */
 
+* {
+    cursor: url(rainbow.cur) 2 2, auto;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -160,7 +164,9 @@ section {
     border-radius: 20px;
 }
 
-
+.card:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* 30% 투명도의 흰색 배경 */
+}
 
 .card-top {
     display: flex;
