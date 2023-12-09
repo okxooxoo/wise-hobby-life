@@ -18,8 +18,18 @@
           <div class="sign-form">
             <label for="title">사진</label>
             <div id="hobby-img">
-              <img src="../<%= data.image %>" width="200" height="200" alt="취미 사진" />
+              <img
+                src="../<%= data.image %>"
+                width="200"
+                height="200"
+                alt="취미 사진"
+              />
             </div>
+          </div>
+
+          <div class="sign-form">
+            <label for="title">작성자</label>
+            <p id="title" name="title"><%= writer.name %></p>
           </div>
 
           <div class="sign-form">
@@ -31,10 +41,24 @@
             <label for="content">내용</label>
             <p id="content" name="content"><%= data.content %></p>
           </div>
-          <button class="sign-btn" type="button" onclick="history.back()">목록으로</button>
+
+          <div class="detail-btn-container">
+            <p></p>
+            <button class="sign-btn" type="button" id="<%= writer._id %>" onclick="openBlog(this)">
+              <%= writer.name %> 님의 취미생활 더 구경하기
+            </button>
+            <button class="sign-btn" type="button" onclick="history.back()">
+              이전으로
+            </button>
+          </div>
         </form>
       </article>
     </section>
 
+    <script>
+      function openBlog(input) {
+        open(`/blog/${input.id}`, "_self");
+      }
+    </script>
   </body>
 </html>

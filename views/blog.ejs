@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>슬기로운 취미생활</title>
     <script src="https://kit.fontawesome.com/9e23e332cf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
   </head>
 
   <body>
     <%- include('title.ejs') %>
 
     <div>
-      <% if(user) { %> <%- include('navbar.ejs') %> <% } %>
+      <%- include('navbar.ejs') %>
 
       <section>
         <article>
-          <h2>나의 취미생활</h2>
+          <h2><%= blogUser.name %> 님의 취미생활</h2>
 
           <div id="card-container">
             <% for (var i = 0; i < data.length; i++) { %>
             <div class="card" id="<%= data[i]._id %>" onclick="openDetail(this)">
               <img
-                src="<%= data[i].image %>"
+                src="../<%= data[i].image %>"
                 width="200"
                 height="200"
                 class="hobby-img"

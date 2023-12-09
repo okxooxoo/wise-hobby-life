@@ -1,10 +1,12 @@
 <header><h2>슬기로운 취미생활</h2></header>
 <nav>
-    <!--다른 html 파일로 이동할 수 있는 네비게이션 링크 모음-->
-    <ul>
+  <!--다른 html 파일로 이동할 수 있는 네비게이션 링크 모음-->
+  <ul>
     <li><a href="/">홈</a></li>
     <li><a href="/explore">둘러보기</a></li>
     <li><a href="/share">공유하기</a></li>
-    <li><a href="/blog">나의 취미생활</a></li>
-    </ul>
+    <% if(user) { %>
+      <li><a href="/blog/<%= user._id %>">나의 취미생활</a></li>
+    <% } %>
+  </ul>
 </nav>

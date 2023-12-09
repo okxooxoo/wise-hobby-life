@@ -53,11 +53,11 @@ app.get("/", function (req, res) {
 });
 
 app.get("/signup", function (req, res) {
-  res.render("signup.ejs");
+  res.render("signup.ejs", { user: req.session.user });
 });
 
 app.get("/login", function (req, res) {
-  res.render("login.ejs");
+  res.render("login.ejs", { user: req.session.user });
 });
 
 app.post("/signup", function (req, res) {
@@ -113,7 +113,7 @@ app.get("/logout", function (req, res) {
 
 app.get("/share", function (req, res) {
   if (req.session.user) {
-    res.render("share.ejs");
+    res.render("share.ejs", { user: req.session.user });
   } else {
     res.send(
       "<script>location.href='/login';alert('로그인 후에 이용할 수 있습니다.');</script>"
@@ -165,31 +165,46 @@ app.get("/detail/:id", function (req, res) {
   mydb
     .collection("hobby")
     .findOne({ _id: req.params.id })
-    .then((result) => {
-      res.render("detail.ejs", { data: result });
+    .then((data) => {
+      // 작성자 정보를 DB에서 가져오기
+      const writer_id = new ObjId(data.userId);
+      mydb
+        .collection("account")
+        .findOne({ _id: writer_id })
+        .then((writer) => {
+          res.render("detail.ejs", {
+            data: data,
+            writer: writer,
+            user: req.session.user,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).send();
     });
 });
 
-app.get("/blog", function (req, res) {
-  if (req.session.user) {
-    console.log(req.session.user);
-    mydb
-      .collection("hobby")
-      .find({ userId: new ObjId(req.session.user._id) })
-      .toArray()
-      .then((result) => {
-        res.render("blog.ejs", { user: req.session.user, data: result });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send();
-      });
-  } else {
-    res.send(
-      "<script>location.href='/login';alert('로그인 후에 이용할 수 있습니다.');</script>"
-    );
-  }
+app.get("/blog/:userId", function (req, res) {
+  req.params.userId = new ObjId(req.params.userId); // 블로그 유저의 고유 ID
+
+  mydb
+    .collection("hobby")
+    .find({ userId: req.params.userId })
+    .toArray()
+    .then((hobbyData) => {
+      mydb
+        .collection("account")
+        .findOne({ _id: req.params.userId })
+        .then((blogUser) => {
+          res.render("blog.ejs", {
+            data: hobbyData,
+            blogUser: blogUser,
+            user: req.session.user,
+          });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
 });

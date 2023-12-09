@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>슬기로운 취미생활</title>
-    <script src="https://kit.fontawesome.com/9e23e332cf.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/9e23e332cf.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
 
@@ -12,15 +15,17 @@
     <%- include('title.ejs') %>
 
     <div>
-      <% if(user) { %> <%- include('navbar.ejs') %> <% } %>
-
       <section>
         <article>
           <h2>사람들의 취미 생활을 구경해보세요 🔍</h2>
 
           <div id="card-container">
             <% for (var i = 0; i < data.length; i++) { %>
-            <div class="card" id="<%= data[i]._id %>" onclick="openDetail(this)">
+            <div
+              class="card"
+              id="<%= data[i]._id %>"
+              onclick="openDetail(this)"
+            >
               <img
                 src="<%= data[i].image %>"
                 width="200"
@@ -29,7 +34,8 @@
                 alt="취미 사진"
               />
               <div class="card-top">
-                <i class="fa-regular fa-heart"></i> <!--하트 아이콘 삽입-->
+                <i class="fa-regular fa-heart"></i>
+                <!--하트 아이콘 삽입-->
                 <p class="card-title"><%= data[i].title %></p>
                 <p></p>
               </div>
@@ -43,9 +49,9 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
-        function openDetail(input) {
-            open(`/detail/${input.id}`, '_self');
-        }
+      function openDetail(input) {
+        open(`/detail/${input.id}`, "_self");
+      }
     </script>
   </body>
 </html>
