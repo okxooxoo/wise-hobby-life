@@ -1,6 +1,16 @@
+<script
+  src="https://kit.fontawesome.com/9e23e332cf.js"
+  crossorigin="anonymous"
+></script>
+
 <aside>
   <!--사이드바에 프로필 정보 표시-->
   <img src="../no-image.png" width="200" height="200" alt="프로필 사진" />
+
+  <div id="follow-btn-container">
+    <button class="follow-btn"><i class="fa-regular fa-plus"></i> 친구 추가</button>
+  </div>
+  <br />
 
   <div id="name">
     <strong>name</strong>
@@ -9,12 +19,10 @@
   <br />
 
   <div id="bio">
-    <strong>bio</strong>    
-    <ul>
-      <li>데이터사이언스전공 4학년</li>
-      <li>새로운 것에 관심이 많습니다!</li>
-    </ul>
+    <strong>bio</strong>
+    <p><%= blogUser.bio %></p>
   </div>
+  <br />
 
   <div id="hobby">
     <strong>hobby</strong>
@@ -23,5 +31,9 @@
       <li>일상 기록하기</li>
       <li>인테리어 소품 모으기</li>
     </ul>
+  </div>
+
+  <div>
+    <i class="profile-edit-btn fa-solid fa-user-pen"></i>
   </div>
 </aside>
