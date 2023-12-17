@@ -49,8 +49,34 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  res.render("home.ejs", { user: req.session.user });
+  if (req.session.user) {
+    mydb
+      .collection("account")
+      .findOne({ _id: new ObjId(req.session.user._id) })
+      .then((result) => {
+        const promises = result.friends.map((friendId, index) => {
+          return mydb
+            .collection("hobby")
+            .find({ userId: new ObjId(friendId) })
+            .toArray();
+        });
+
+        // Promise.all을 사용하여 모든 비동기 작업이 완료된 후에 응답을 보냄
+        Promise.all(promises)
+          .then((dataArray) => {
+            const allData = dataArray.flat(); // 배열 평탄화
+            res.render("home.ejs", { user: req.session.user, data: allData });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send();
+          });
+      });
+  } else {
+    res.render("home.ejs", { user: req.session.user });
+  }
 });
+
 
 app.get("/signup", function (req, res) {
   res.render("signup.ejs", { user: req.session.user });
@@ -72,6 +98,7 @@ app.post("/signup", function (req, res) {
       password: sha(req.body.userpw),
       name: req.body.username,
       email: req.body.useremail,
+      friends: [],
       createdDate: koreaNow,
     })
     .then((result) => {

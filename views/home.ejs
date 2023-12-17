@@ -22,6 +22,34 @@
         </article>
 
         <% if(user) { %>
+          <article>
+            <h3>최근에 공유된 친구의 취미 ✨</h3>
+            <div id="card-container">
+              <% for (var i = 0; i < data.length; i++) { %>
+              <div
+                class="card"
+                id="<%= data[i]._id %>"
+                onclick="openDetail(this)"
+              >
+                <img
+                  src="<%= data[i].image %>"
+                  width="200"
+                  height="200"
+                  class="hobby-img"
+                  alt="취미 사진"
+                />
+                <div class="card-top">
+                  <i class="fa-regular fa-heart"></i>
+                  <!--하트 아이콘 삽입-->
+                  <p class="card-title"><%= data[i].title %></p>
+                  <p></p>
+                </div>
+                <p class="card-content"><%= data[i].content %></p>
+              </div>
+              <% } %>
+            </div>
+          </article>
+          <br><br>
           <button onclick="logout()" class="sign-btn">로그아웃</button>
         <% } else { %>
 
@@ -47,6 +75,9 @@
 
       function logout() {
         open('/logout', '_self');
+      }
+      function openDetail(input) {
+        open(`/detail/${input.id}`, "_self");
       }
     </script>
   </body>
