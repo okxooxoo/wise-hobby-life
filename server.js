@@ -223,3 +223,49 @@ app.post("/delete", function (req, res) {
       res.status(500).send();
     });
 });
+
+app.get("/edit/:id", function (req, res) {
+  req.params.id = new ObjId(req.params.id);
+
+  mydb
+    .collection("hobby")
+    .findOne({ _id: req.params.id })
+    .then((data) => {
+      res.render("edit.ejs", {
+        data: data,
+        user: req.session.user,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send();
+    });
+});
+
+app.post("/edit", upload.single("image"), function (req, res) {
+  const newId = new ObjId(req.body.id);
+  console.log(req.body);
+
+  const updateData = {
+    title: req.body.title,
+    content: req.body.content,
+  };
+
+  if (req.file) {
+    const imagePath = req.file.path.replace("public/", "");
+    updateData.image = imagePath;
+  }
+
+  mydb
+    .collection("hobby")
+    .updateOne(
+      { _id: newId },
+      { $set: updateData })
+    .then((result) => {
+      res.send(
+        "<script>location.href='/';alert('수정 완료!');</script>"
+      );
+    })
+    .catch((err) => {
+      res.status(500).send();
+    });
+});

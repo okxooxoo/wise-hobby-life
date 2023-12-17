@@ -48,11 +48,30 @@
               이전으로
             </button>
             <% if (user?._id == writer._id) { %>
-              <button class="delete sign-btn" type="button" data-id="<%= data._id %>">삭제</button>
+            <button
+              class="edit sign-btn"
+              type="button"
+              id="<%= data._id %>"
+              onclick="openEdit(this)"
+            >
+              수정
+            </button>
+            <button
+              class="delete sign-btn"
+              type="button"
+              data-id="<%= data._id %>"
+            >
+              삭제
+            </button>
             <% } else { %>
-              <button class="sign-btn" type="button" id="<%= writer._id %>" onclick="openBlog(this)">
-                <%= writer.name %> 님의 취미생활 더 구경하기
-              </button>
+            <button
+              class="sign-btn"
+              type="button"
+              id="<%= writer._id %>"
+              onclick="openBlog(this)"
+            >
+              <%= writer.name %> 님의 취미생활 더 구경하기
+            </button>
             <% } %>
           </div>
         </form>
@@ -60,25 +79,29 @@
     </section>
 
     <script>
+      function openEdit(input) {
+        open(`/edit/${input.id}`, "_self");
+      }
+
       function openBlog(input) {
         open(`/blog/${input.id}`, "_self");
       }
     </script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
-      $('.delete').click(function(e) {
+      $(".delete").click(function (e) {
         const dataId = e.target.dataset.id;
 
         $.ajax({
-          type: 'post',
-          url: '/delete',
-          data: {_id: dataId},
-        }).done(function(result) {
-          alert("삭제 완료!");
-          open('/', '_self');
-        }).fali(function(xhr, textStatus, errorThrown) {
-          alert('삭제 실패!');
-          console.log(xhr, textStatus, errorThrown);
+          type: "post",
+          url: "/delete",
+          data: { _id: dataId },
+        }).done(function (result) {
+            alert("삭제 완료!");
+            open("/", "_self");
+        }).fali(function (xhr, textStatus, errorThrown) {
+            alert("삭제 실패!");
+            console.log(xhr, textStatus, errorThrown);
         });
       });
     </script>
