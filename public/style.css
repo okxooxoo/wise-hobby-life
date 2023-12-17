@@ -236,3 +236,8 @@ section {
 .follow-btn:active {
     transform: scale(0.9);
 }
+
+.delete {
+    color: white;
+    background-color: red
+}

@@ -208,3 +208,18 @@ app.get("/blog/:userId", function (req, res) {
       res.status(500).send();
     });
 });
+
+app.post("/delete", function (req, res) {
+  req.body._id = new ObjId(req.body._id);
+
+  mydb
+    .collection("hobby")
+    .deleteOne(req.body)
+    .then((result) => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
+});
