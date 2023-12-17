@@ -8,10 +8,16 @@
   <img src="../no-image.png" width="200" height="200" alt="프로필 사진" />
 
   <div id="follow-btn-container">
-    <button class="follow-btn"><i class="fa-regular fa-plus"></i> 친구 추가</button>
+  <% if (user && user._id != blogUser._id) { %>
+    <% if (user.friends && user.friends.includes(blogUser._id.toString())) { %>
+      <button class="follow-btn" data-id="<%= blogUser._id %>">친구 끊기</button>
+    <% } else { %>
+      <button class="follow-btn" data-id="<%= blogUser._id %>">친구 추가</button>
+    <% } %>
+  <% } %>
   </div>
-  <br />
 
+  <br />
   <div id="name">
     <strong>name</strong>
     <p><%= blogUser.name %></p>
@@ -37,3 +43,27 @@
     <i class="profile-edit-btn fa-solid fa-user-pen"></i>
   </div>
 </aside>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+  $(".follow-btn").click(function (e) {
+    const dataId = e.target.dataset.id;
+
+    $.ajax({
+      type: "post",
+      url: "/follow",
+      data: { _id: dataId },
+    }).done(function (result) {
+        console.log(e.target);
+        if (e.target.innerHTML == "친구 추가") {
+          alert("친구 추가!");
+          e.target.innerHTML = "친구 삭제";
+        } else {
+          alert("친구 삭제!");
+          e.target.innerHTML = "친구 추가";
+        }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        console.log(xhr, textStatus, errorThrown);
+    });
+  });
+</script>

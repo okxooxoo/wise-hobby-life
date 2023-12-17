@@ -262,10 +262,51 @@ app.post("/edit", upload.single("image"), function (req, res) {
       { $set: updateData })
     .then((result) => {
       res.send(
-        "<script>location.href='/';alert('수정 완료!');</script>"
+        "<script>location.href='/explore';alert('수정 완료!');</script>"
       );
     })
     .catch((err) => {
       res.status(500).send();
+    });
+});
+
+app.post('/follow', function (req, res) {
+
+  mydb
+    .collection("account")
+    .findOne({ _id: new ObjId(req.session.user._id) })
+    .then((result) => {
+      let newFriends = [];
+
+      if (result.friends) {
+        if (result.friends.includes(req.body._id)) {
+          newFriends = result.friends.filter((value, index) => {
+            return value != req.body._id;
+          });
+        } else {
+          newFriends = [...result.friends, req.body._id];
+        }
+      } else {
+        newFriends = [req.body._id];
+      }
+
+      const updateData = {
+        friends: newFriends,
+      };
+
+      mydb
+        .collection("account")
+        .updateOne(
+          { _id: new ObjId(req.session.user._id) },
+          { $set: updateData })
+        .then((result) => {
+          res.status(200).send();
+        })
+        .catch((err) => {
+          res.status(500).send();
+        });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });

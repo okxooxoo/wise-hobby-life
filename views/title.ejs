@@ -1,4 +1,4 @@
-<header><h2>슬기로운 취미생활</h2></header>
+<header><h2 onclick="openHome()">슬기로운 취미생활</h2></header>
 <nav>
   <!--다른 html 파일로 이동할 수 있는 네비게이션 링크 모음-->
   <ul>
@@ -10,3 +10,9 @@
     <% } %>
   </ul>
 </nav>
+
+<script>
+  function openHome() {
+    open('/', '_self');
+  }
+</script>

@@ -98,7 +98,7 @@
           data: { _id: dataId },
         }).done(function (result) {
             alert("삭제 완료!");
-            open("/", "_self");
+            open("/explore", "_self");
         }).fali(function (xhr, textStatus, errorThrown) {
             alert("삭제 실패!");
             console.log(xhr, textStatus, errorThrown);
